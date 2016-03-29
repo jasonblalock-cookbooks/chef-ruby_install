@@ -20,8 +20,9 @@
 # limitations under the License.
 #
 
-default['ruby_install']['version'] = '0.5.0'
-default['ruby_install']['checksum'] = 'aa4448c2c356510cc7c2505961961a17bd3f3435842831e04c8516eb703afd19'
+default['ruby_install']['version'] = '0.6.0'
+default['ruby_install']['checksum'] = '3cc90846ca972d88b601789af2ad9ed0a496447a13cb986a3d74a4de062af37d'
+default['ruby_install']['url'] = "https://codeload.github.com/postmodern/ruby-install/tar.gz/v#{node['ruby_install']['version']}"
 
 # Install rubies into /opt/rubies as expected by Chruby.
 default['ruby_install']['default_ruby_base_path'] = '/opt/rubies'

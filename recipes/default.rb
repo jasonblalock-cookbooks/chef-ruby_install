@@ -47,13 +47,23 @@ end
 include_recipe 'ark'
 
 ark 'ruby_install' do
-  url "https://codeload.github.com/postmodern/ruby-install/tar.gz/v#{node['ruby_install']['version']}" # rubocop:disable LineLength
+  url node['ruby_install']['url']
   extension 'tar.gz'
   checksum node['ruby_install']['checksum']
-  prefix_root '/tmp' # Don't need /usr/local/ruby-install
-  action :install_with_make
+  version node['ruby_install']['version']
+  prefix_root Chef::Config["file_cache_path"] # Don't need /usr/local/ruby-install
+  path Chef::Config["file_cache_path"]
+  action :put
+end
+
+execute "Install ruby-install" do
+  cwd "#{Chef::Config['file_cache_path']}/ruby_install"
+  command %{make uninstall && make clean && make install}
 end
 
 # Make sure ruby-install has correct ownership, Debian doesn't seem to use
 # group 'root' when it is installed unlike all the others including Ubuntu.
-execute 'chown root:root /usr/local/bin/ruby-install'
+file '/usr/local/bin/ruby-install' do
+  owner 'root'
+  group 'root'
+end

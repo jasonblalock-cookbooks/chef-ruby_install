@@ -36,9 +36,9 @@ when 'debian'
     packages = %w{ libssl1.0.0 libssl1.0.0-dbg }
   end
   packages.each do |pkg|
-      package pkg do
-        action :upgrade
-      end
+    package pkg do
+      action :upgrade
+    end
   end
 when 'rhel'
   include_recipe 'yum'

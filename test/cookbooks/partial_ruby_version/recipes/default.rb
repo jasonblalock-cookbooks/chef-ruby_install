@@ -5,4 +5,4 @@
 # version string that it still gets installed into a directory named after the
 # full version/patchlevel.
 
-ruby_install_ruby 'ruby 1.9'
+ruby_install_ruby 'ruby 2.1'

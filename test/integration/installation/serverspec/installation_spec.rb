@@ -12,6 +12,6 @@ describe 'ruby-install is installed at /usr/local/bin/ruby-install' do
 
   describe command('/usr/local/bin/ruby-install --version') do
     its(:exit_status) { should eq 0 }
-    its(:stdout) { should match /ruby-install: 0.5.0/ }
+    its(:stdout) { should match /ruby-install: 0.6.0/ }
   end
 end

@@ -48,10 +48,10 @@ file_name = "ruby-install-#{node['ruby_install']['checksum']}"
 dir_path = "#{Chef::Config['file_cache_path']}/ruby-install"
 file_path = "#{dir_path}/#{file_name}.tar.gz"
 
-#directory "#{dir_path}/#{file_name}" do
-#  recursive true
-#  action :create
-#end
+directory "#{dir_path}/#{file_name}" do
+  recursive true
+  action :create
+end
 
 remote_file file_path do
   source node['ruby_install']['url']
@@ -63,7 +63,7 @@ end
 
 execute 'Install ruby-install' do
   cwd "#{dir_path}/#{file_name}"
-  command %{make uninstall && make clean && make install}
+  command %{sudo make uninstall && sudo make clean && sudo make install}
   action :nothing
 end
 
@@ -73,7 +73,7 @@ bash 'extract_tarball' do
     mkdir -p #{dir_path}/#{file_name}
     tar xzvf #{file_name}.tar.gz -C #{dir_path}/#{file_name} --strip-components=1
     EOH
-  not_if { ::File.exist?("#{dir_path}/#{file_name}") }
+  only_if { Dir["#{dir_path}/#{file_name}/*"].empty? }
   notifies :run, resources(execute: 'Install ruby-install'), :immediately
 end
 
@@ -82,4 +82,5 @@ end
 file '/usr/local/bin/ruby-install' do
   owner 'root'
   group 'root'
+  only_if { ::File.exist?("/usr/local/bin/ruby-install") }
 end

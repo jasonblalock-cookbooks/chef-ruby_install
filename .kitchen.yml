@@ -12,14 +12,14 @@ platforms:
 #  - name: fedora-21
 
 suites:
-#- name: alltherubies
-#  run_list:
-#  - recipe[ruby_install]
-#  - recipe[alltherubies]
+- name: alltherubies
+  run_list:
+  - recipe[ruby_install]
+  - recipe[alltherubies]
 - name: installation
   run_list:
   - recipe[ruby_install]
-#- name: partial_ruby_version
-#  run_list:
-#  - recipe[ruby_install]
-#  - recipe[partial_ruby_version]
+- name: partial_ruby_version
+  run_list:
+  - recipe[ruby_install]
+  - recipe[partial_ruby_version]
